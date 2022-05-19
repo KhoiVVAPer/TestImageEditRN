@@ -37,16 +37,13 @@ const App = () => {
     return (
       <View
         key={`${top}-${left}`}
-        style={{
-          position: 'absolute',
-          top: top,
-          left: left,
-          width: 40,
-          height: 40,
-          borderRadius: 20,
-          backgroundColor: 'white',
-          opacity: 0.1,
-        }}
+        style={[
+          styles.blurRoundContainer,
+          {
+            top: top,
+            left: left,
+          },
+        ]}
       />
     );
   };
@@ -60,17 +57,10 @@ const App = () => {
         options={{format: 'png', quality: 1}}
         style={{flex: 1}}>
         <Image
-          style={{width: '100%', height: '100%'}}
+          style={{width: '100%', height: '80%'}}
           source={{uri: 'https://picsum.photos/200/300'}}
         />
-        <View
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-          }}>
+        <View style={styles.viewOverlay}>
           <View
             style={styles.container}
             onStartShouldSetResponder={ev => true}
@@ -86,6 +76,7 @@ const App = () => {
           </View>
 
           <TouchableOpacity
+            style={styles.buttonCapture}
             onPress={() => {
               imageRef.current.capture().then(data => {
                 console.log('do something with ', data);
@@ -105,6 +96,28 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     backgroundColor: 'transparent',
+  },
+  buttonCapture: {
+    marginTop: 15,
+    alignSelf: 'center',
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 15,
+  },
+  viewOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '80%',
+  },
+  blurRoundContainer: {
+    position: 'absolute',
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: 'white',
+    opacity: 0.1,
   },
 });
 
