@@ -19,6 +19,7 @@ import ViewShot from 'react-native-view-shot';
 
 const App = () => {
   const [listBlur, setListBlur] = useState([]);
+  const [linkImg, setLinkImg] = useState();
   const imageRef = useRef();
   const onTouchEvent = (name, ev) => {
     console.log(
@@ -80,10 +81,12 @@ const App = () => {
             onPress={() => {
               imageRef.current.capture().then(data => {
                 console.log('do something with ', data);
+                setLinkImg(data);
               });
             }}>
             <Text>Capture Image</Text>
           </TouchableOpacity>
+          <Text>{linkImg}</Text>
         </View>
       </ViewShot>
     </SafeAreaView>
